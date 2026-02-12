@@ -1,0 +1,13 @@
+<%- include('includes/head.ejs') %>
+
+<body>
+  <h1>User List</h1>
+  <a href="/">Home</a>
+  <ul>
+    <% for(let i=0; i<users.length; i++) { %>
+    <li><%= users[i] %></li>
+    <% } %>
+  </ul>
+</body>
+
+</html>

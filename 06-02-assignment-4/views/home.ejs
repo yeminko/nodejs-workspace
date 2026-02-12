@@ -1,0 +1,13 @@
+<%- include('includes/head.ejs') %>
+
+<body>
+  <h1>Welcome to the Home Page!</h1>
+  <p><a href="/users">View Users</a></p>
+
+  <form action="/users" method="POST">
+    <input name="username" type="text" placeholder="Enter your name" />
+    <button type="submit">Submit</button>
+  </form>
+</body>
+
+</html>
