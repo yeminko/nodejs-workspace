@@ -1,8 +1,9 @@
-const Sequelize = require('sequelize');
+require("dotenv").config();
+const mongodb = require("mongodb");
+const MongoClient = mongodb.MongoClient;
 
-const sequelize = new Sequelize('node-complete', 'root', 'nodecomplete', {
-  dialect: 'mysql',
-  host: 'localhost'
-});
-
-module.exports = sequelize;
+MongoClient.connect(process.env.MONGO_DB_URL)
+  .then()
+  .catch((err) => {
+    console.log(err);
+  });
