@@ -35,7 +35,7 @@ router.get("/edit-product/:productId", isAuth, adminController.getEditProduct);
 router.post(
   "/edit-product",
   [
-    body("title").isAlphanumeric().isLength({ min: 3 }).trim(),
+    body("title").isString().isLength({ min: 3 }).trim(),
     body("imageUrl").isURL().withMessage("Please enter a valid URL."),
     body("price").isFloat().withMessage("Please enter a valid price."),
     body("description")
