@@ -30,6 +30,15 @@
                     </article>
                 <% } %>
             </div>
+            <section class="pagination">
+                <% if (hasPreviousPage) { %>
+                    <a href="/products?page=<%= previousPage %>">Previous</a>
+                <% } %>
+                <span>Page <%= currentPage %> of <%= lastPage %></span>
+                <% if (hasNextPage) { %>
+                    <a href="/products?page=<%= nextPage %>">Next</a>
+                <% } %>
+            </section>
         <% } else { %>
             <h1>No Products Found!</h1>
         <% } %>
