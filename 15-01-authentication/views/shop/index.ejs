@@ -30,15 +30,14 @@
                     </article>
                 <% } %>
             </div>
-            <section class="pagination">
-                <% if (hasPreviousPage) { %>
-                    <a href="/products?page=<%= previousPage %>">Previous</a>
-                <% } %>
-                <span>Page <%= currentPage %> of <%= lastPage %></span>
-                <% if (hasNextPage) { %>
-                    <a href="/products?page=<%= nextPage %>">Next</a>
-                <% } %>
-            </section>
+            <%- include('../includes/pagination.ejs', {
+                currentPage: currentPage,
+                hasNextPage: hasNextPage,
+                hasPreviousPage: hasPreviousPage,
+                nextPage: nextPage,
+                previousPage: previousPage,
+                lastPage: lastPage
+            }) %>
         <% } else { %>
             <h1>No Products Found!</h1>
         <% } %>
