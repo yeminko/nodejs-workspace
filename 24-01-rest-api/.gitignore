@@ -11,3 +11,6 @@ logs/
 # Ignore build output
 dist/
 build/
+
+# Ignore environment variables
+.env
