@@ -64,8 +64,10 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    app.listen(9000, () => {
-      console.log("Server is running on port 9000");
+    const server = app.listen(9000);
+    const io = require("./socket").init(server);
+    io.on("connection", (socket) => {
+      console.log("Client connected");
     });
   })
   .catch((err) => console.log(err));
