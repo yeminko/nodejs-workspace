@@ -1,0 +1,8 @@
+{
+  "env": {
+    "MONGO_USER": "your_mongo_user_here",
+    "MONGO_PASSWORD": "your_mongo_password_here",
+    "MONGO_DEFAULT_DATABASE": "your_mongo_default_database_here",
+    "STRIPE_SECRET_KEY": "your_stripe_secret_key_here"
+  }
+}

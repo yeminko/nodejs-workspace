@@ -1,7 +1,11 @@
 require("dotenv").config();
 const path = require("path");
+const fs = require("fs");
 
 const express = require("express");
+const helmet = require("helmet");
+const compression = require("compression");
+const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const multer = require("multer");
@@ -15,7 +19,15 @@ const { clearImage } = require("./utils/file");
 const feedRoutes = require("./routes/feed");
 const authRoutes = require("./routes/auth");
 
+const accessLogStream = fs.createWriteStream(
+  path.join(__dirname, "access.log"),
+  { flags: "a" },
+);
+
 const app = express();
+app.use(helmet());
+app.use(compression());
+app.use(morgan("combined", { stream: accessLogStream }));
 
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
