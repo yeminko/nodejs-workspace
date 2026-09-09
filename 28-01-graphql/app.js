@@ -1,6 +1,7 @@
 require("dotenv").config();
 const path = require("path");
 const fs = require("fs");
+const https = require("https");
 
 const express = require("express");
 const helmet = require("helmet");
@@ -28,6 +29,9 @@ const app = express();
 app.use(helmet());
 app.use(compression());
 app.use(morgan("combined", { stream: accessLogStream }));
+
+const privateKey = fs.readFileSync("server.key");
+const certificate = fs.readFileSync("server.cert");
 
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -129,7 +133,9 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    const server = app.listen(9000);
+    const server = https
+      .createServer({ key: privateKey, cert: certificate }, app)
+      .listen(9000);
     const io = require("./socket").init(server);
     io.on("connection", (socket) => {
       console.log("Client connected");
