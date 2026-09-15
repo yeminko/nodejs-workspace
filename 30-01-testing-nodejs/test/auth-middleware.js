@@ -1,4 +1,6 @@
 const expect = require("chai").expect;
+const jwt = require("jsonwebtoken");
+const sinon = require("sinon");
 
 const authMiddleware = require("../middleware/is-auth");
 
@@ -23,5 +25,31 @@ describe("Auth Middleware", function () {
     };
 
     expect(authMiddleware.bind(this, req, {}, () => {})).to.throw();
+  });
+
+  it("should throw an error if the token cannot be verified", function () {
+    const req = {
+      get: function (headerName) {
+        return "Bearer invalidtoken";
+      },
+    };
+
+    expect(authMiddleware.bind(this, req, {}, () => {})).to.throw();
+  });
+
+  it("should yield a userId if the token is valid", function () {
+    const req = {
+      get: function (headerName) {
+        return "Bearer validtoken";
+      },
+    };
+
+    sinon.stub(jwt, "verify").returns({ userId: "abc" });
+
+    authMiddleware(req, {}, () => {});
+    expect(req).to.have.property("userId");
+    expect(req.userId).to.equal("abc");
+    expect(jwt.verify.called).to.be.true;
+    jwt.verify.restore();
   });
 });
