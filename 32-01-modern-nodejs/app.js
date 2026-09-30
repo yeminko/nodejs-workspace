@@ -1,7 +1,8 @@
 // const express = require("express");
 import express from "express";
 
-const resHandler = require("./response-handler");
+// const resHandler = require("./response-handler");
+import { resHandler } from "./response-handler.js";
 
 const app = express();
 
